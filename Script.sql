@@ -65,11 +65,12 @@ where order_id = 8
 select *
 from orders
 
-
+--1
 select 
 count(amount)
 from orders
 
+--2
 select
 	count(product) 
 from product p
@@ -77,16 +78,20 @@ join category c
 	on p.category_id = c.category_id 
 where c.category = 'Игрушки'
 
+--3
 select
 	count(product) as prod_count,
-	p.category_id 
+	c.category 
 from product p
-group by p.category_id
+join category c 
+	on p.category_id = c.category_id
+group by p.category_id, c.category 
 having count(product) > 1
 order by
 prod_count desc
 limit 1
 
+--4
 select
 concat(c.last_name, ' ', c.first_name) as customer_name,
 p.product,
@@ -100,7 +105,3 @@ join product p
 	on opl.product_id = p.product_id
 where c.last_name = 'Williams'
 	and p.product = 'Черепаха'
-
-
-
-
